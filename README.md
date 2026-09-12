@@ -75,6 +75,32 @@ Vercel logove — namjerno glasno, da se lead ne izgubi tiho.
 
 Push na `main` je produkcija. Svaka druga grana dobija preview URL.
 
+Vercel projekat: `nordika-agency` (team `team_2JmhoyCWhqEw3psBJpqDITOM`, Hobby).
+Produkcijski alias: `https://nordika-agency.vercel.app`.
+
+### Provjera deploymenta
+
+```bash
+node tools/verify.mjs                                    # reference postoje na disku
+node tools/check-live.mjs https://nordika-agency.vercel.app   # server ih zaista servira
+```
+
+## DNS cutover
+
+Oba domena su **već zakačena** na Vercel projekat; ostaje samo promijeniti
+zapise na GoDaddyju (nameserveri `ns31/ns32.domaincontrol.com` ostaju gdje su).
+
+| Zapis | Sada (Webflow) | Treba (Vercel) |
+|---|---|---|
+| `nordika-agency.com` A | `198.202.211.1` | `76.76.21.21` |
+| `www` CNAME | `cdn.webflow.com` | `cname.vercel-dns.com` |
+
+Poslije promjene: u Vercel → Settings → Domains postaviti apex kao **redirect
+na www (308)**. Apex je i na Webflowu vraćao 301 na www i to se mora sačuvati.
+
+Cutover ide tek kad `RESEND_API_KEY` postoji — inače produkcija dobija sajt sa
+kontakt formom koja vraća 503, a na Webflowu forma radi.
+
 ## Šta je ostalo eksterno
 
 Namjerno, jer bez živog poziva ne rade: Google Tag Manager (`GTM-KTVCXRL8`),
@@ -98,3 +124,8 @@ računa. To je bila jedina zavisnost sajta od repoa nepoznate osobe.
   zato `mirror.mjs` skenira granicu URL-a znak po znak.
 - Apex `nordika-agency.com` mora ostati 301/308 na `www` — tako je bilo na
   Webflowu i canonical se na to oslanja.
+- `luxy.js` baca `TypeError: Cannot read properties of null (reading
+  'clientHeight')` na stranicama bez `#luxy` wrappera (contact, project
+  stranice). **To nije regresija** — identična greška postoji i na živom
+  Webflow sajtu, provjereno u konzoli. Smooth scroll radi tamo gdje wrapper
+  postoji. Ako se ikad čisti, uslovno pozvati `luxy.init()`.

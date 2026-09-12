@@ -95,3 +95,36 @@ godinu i po to je prihvatljivo; MDX blog bi bio odvojen projekat.
 
 Webflow form inbox se gubi sa pretplatom — 3 postojeće prijave su arhivirane u
 `docs/webflow-form-submissions.json`.
+
+## Stanje na kraju sesije 12.09.2026.
+
+Urađeno i provjereno:
+
+- Repo `rudolf-nordikus/Nordika-Agency` (public), 2 commita, lokalno
+  `C:\Users\Nordika\nordika-agency`
+- Vercel projekat `nordika-agency` (`prj_4nVWLoqnLOXDqvpJbHIbtsNWv5YO`),
+  GitHub povezan — push na `main` je produkcija
+- Produkcijski alias `https://nordika-agency.vercel.app` — javan, bez SSO-a
+- **32/32 stranice i 230/230 asseta vraćaju 200** sa ispravnim Content-Type-om,
+  404 ruta vraća 404 (`tools/check-live.mjs`)
+- Vizualno potvrđeno u browseru: početna, project stranica sa showcase
+  galerijom (enkodovane slike se učitavaju), kontakt forma
+- Kontakt API provjeren u svim granama: GET 405, prazno 400, loš email 400,
+  honeypot 200, ispravan zahtjev 503 (nema ključa)
+- Forma u browseru: URL ostaje na `/contact` bez query stringa — Webflow GET
+  handler je uspješno presretnut; prikazuje se Webflow-ova error poruka
+- Env varijable `KONTAKT_EMAIL_ZA` i `KONTAKT_EMAIL_OD` postavljene za sva tri
+  okruženja
+- Oba domena zakačena na Vercel projekat; DNS i dalje na Webflowu, živi sajt
+  netaknut
+
+Nalaz usput: `luxy.js` baca `clientHeight` grešku na stranicama bez `#luxy`
+wrappera — **postoji i na živom Webflow sajtu**, nije regresija.
+
+Blokirano:
+
+- `RESEND_API_KEY` — postojeći ključ iz LjutaHerke je restriktivan
+  (`restricted_api_key`, 401 na `/domains`), pa se njime ne može ni dodati ni
+  verifikovati `nordika-agency.com`. Treba full-access ključ.
+- DNS cutover — namjerno zadržan. Bez ključa bi produkcija dobila formu koja
+  vraća 503, a na Webflowu forma trenutno radi.
