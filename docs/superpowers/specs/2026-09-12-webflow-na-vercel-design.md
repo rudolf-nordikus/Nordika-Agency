@@ -1,7 +1,7 @@
 # Migracija Nordika Agency sa Webflowa na Vercel
 
 **Datum:** 12.09.2026.
-**Status:** implementirano do DNS cutovera; cutover čeka Resend ključ.
+**Status:** završeno. Sajt je na Vercelu, cutover izvršen — vidi zadnju sekciju.
 
 ## Cilj
 
@@ -76,21 +76,20 @@ jQuery handlera koji Webflow veže u bubble fazi.
 Bez `RESEND_API_KEY` vraća 503 i loguje prijavu — glasno, da se lead ne izgubi
 tiho.
 
-## Cutover
+## Cutover — plan
 
 Redoslijed, tek nakon verifikacije svih 32 URL-a na Vercel domenu:
 
 1. `www` CNAME: `cdn.webflow.com` → `cname.vercel-dns.com`
-2. apex A: `198.202.211.1` → `76.76.21.21`
+2. apex A: `198.202.211.1` → Vercel IP
 3. Vercel: apex → www redirect (308)
 4. Webflow ostaje objavljen kao fallback
 
-Vrijednosti su one koje `vercel domains inspect` traži za **ovaj** projekat.
-Ne prepisivati ih iz `neso-racunari` ni `dejanzonjic-site` — Vercel tamo
-koristi druge (`216.198.79.1`, odnosno per-projekat `*.vercel-dns-017.com`).
-
 Apex je i na Webflowu vraćao 301 na www; to se mora sačuvati. Kod
 `dejanzonjic.com` je taj korak propušten i apex servira duplikat sadržaja.
+
+> Tačan IP uzeti iz Vercel **dashboarda**, ne iz CLI-ja — vidi nalaz u zadnjoj
+> sekciji. Ne prepisivati ni iz `neso-racunari` ni iz `dejanzonjic-site`.
 
 ## Šta se gubi
 
