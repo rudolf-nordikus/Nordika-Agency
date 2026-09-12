@@ -80,10 +80,14 @@ tiho.
 
 Redoslijed, tek nakon verifikacije svih 32 URL-a na Vercel domenu:
 
-1. `www` CNAME: `cdn.webflow.com` → Vercel target
-2. apex A: `198.202.211.1` → `216.198.79.1`
+1. `www` CNAME: `cdn.webflow.com` → `cname.vercel-dns.com`
+2. apex A: `198.202.211.1` → `76.76.21.21`
 3. Vercel: apex → www redirect (308)
 4. Webflow ostaje objavljen kao fallback
+
+Vrijednosti su one koje `vercel domains inspect` traži za **ovaj** projekat.
+Ne prepisivati ih iz `neso-racunari` ni `dejanzonjic-site` — Vercel tamo
+koristi druge (`216.198.79.1`, odnosno per-projekat `*.vercel-dns-017.com`).
 
 Apex je i na Webflowu vraćao 301 na www; to se mora sačuvati. Kod
 `dejanzonjic.com` je taj korak propušten i apex servira duplikat sadržaja.
