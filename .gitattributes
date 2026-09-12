@@ -1,0 +1,3 @@
+# Snapshot mora ostati bajt-identičan onome što se servira.
+# Bez ovoga Git na Windowsu konvertuje LF u CRLF i mijenja sadržaj fajlova.
+* -text

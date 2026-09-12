@@ -1,0 +1,48 @@
+{
+  "napomena": "Arhiva svih prijava sa Webflow kontakt forme, izvučena preko Webflow Data API-ja prije migracije na Vercel. Webflow form inbox se gubi kad se site plan ukine, pa je ovo jedina kopija. Prijave od 12.09.2026. nadalje idu mailom preko api/contact.js.",
+  "izvuceno": "2026-09-12",
+  "siteId": "64e8cdf31b022f5698478fc2",
+  "ukupno": 3,
+  "prijave": [
+    {
+      "id": "690e229ced8dcdc85bac248c",
+      "dateSubmitted": "2025-11-07T16:47:23.962Z",
+      "ocjena": "pravi lead",
+      "formResponse": {
+        "Contact 6 First Name": "Francois",
+        "Contact 6 Last Name": "Moreau",
+        "Contact 6 Email": "francois.moreau@grape-data.com",
+        "Contact 6 Phone": "+447725740294",
+        "Checkbox Branding": "false",
+        "Checkbox Web Design": "false",
+        "Checkbox Data Visualization": "true",
+        "Checkbox Webflow": "false",
+        "Checkbox Consultancy": "false",
+        "Checkbox Join the team": "false",
+        "Contact 6 Message": "We are a survey provider company and we have recently switched to Forsta (including Forsta Visualisation). We would like to use a third party to provide our client clients with professional presentations or interactive dashboards where they could analyse their survey answers. Looking forward to discussing whether your company could be a fit"
+      }
+    },
+    {
+      "id": "6890f36c2fd5346dbe349be0",
+      "dateSubmitted": "2025-07-29T21:17:26.662Z",
+      "ocjena": "spam",
+      "formResponse": {
+        "Contact 6 First Name": "Newton Poole",
+        "Contact 6 Last Name": "Newton Poole",
+        "Contact 6 Email": "melaniefell51@gmail.com",
+        "Contact 6 Message": "Hello!! \r\nMy name is Newton Poole, I work as the Research and Procurement Pharmacist in a pharmaceutical company. I am writing to extend a business request to you.  I am looking for a trustworthy entrepreneur/individual to represent my company in sourcing some of Herbal oil basic raw materials used in the manufacturing of high-quality antiviral vaccines, cancer treatment, and other life-saving treatments. I am assuring you that good profits will be earned from the commission that will be paid to middle-person(s). \r\nI will provide exclusive details to you upon your acceptance. \r\nContact WhatsApp: +1 (212) 203-7840 \r\ncontact by email only when you don't have WhatsApp: newtonpoole1@chemist.com \r\nI await your response to provide further details to you. \r\nRegards \r\nNewton Poole."
+      }
+    },
+    {
+      "id": "6890f36b2fd5346dbe349bc5",
+      "dateSubmitted": "2025-07-29T09:41:32.334Z",
+      "ocjena": "spam",
+      "formResponse": {
+        "Contact 6 First Name": "GeorgeWhelm",
+        "Contact 6 Last Name": "GeorgeWhelm",
+        "Contact 6 Email": "irinademenkova86@gmail.com",
+        "Contact 6 Message": "Hi, kam dashur të di çmimin tuaj"
+      }
+    }
+  ]
+}
