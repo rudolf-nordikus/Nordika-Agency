@@ -85,21 +85,24 @@ node tools/verify.mjs                                    # reference postoje na 
 node tools/check-live.mjs https://nordika-agency.vercel.app   # server ih zaista servira
 ```
 
-## DNS cutover
+## DNS — cutover je urađen 12.09.2026.
 
-Oba domena su **već zakačena** na Vercel projekat; ostaje samo promijeniti
-zapise na GoDaddyju (nameserveri `ns31/ns32.domaincontrol.com` ostaju gdje su).
+Sajt je živ na Vercelu. Zapisi na GoDaddyju (nameserveri
+`ns31/ns32.domaincontrol.com` ostali gdje su):
 
-| Zapis | Sada (Webflow) | Treba (Vercel) |
+| Zapis | Bilo (Webflow) | Sada (Vercel) |
 |---|---|---|
-| `nordika-agency.com` A | `198.202.211.1` | `76.76.21.21` |
+| `nordika-agency.com` A | `198.202.211.1` | `216.198.79.1` |
 | `www` CNAME | `cdn.webflow.com` | `cname.vercel-dns.com` |
 
-Poslije promjene: u Vercel → Settings → Domains postaviti apex kao **redirect
-na www (308)**. Apex je i na Webflowu vraćao 301 na www i to se mora sačuvati.
+Apex je u Vercelu postavljen kao **308 redirect na www** — isto ponašanje kao
+na Webflowu, gdje je vraćao 301.
 
-Cutover ide tek kad `RESEND_API_KEY` postoji — inače produkcija dobija sajt sa
-kontakt formom koja vraća 503, a na Webflowu forma radi.
+Zoho ostaje netaknut: MX i dalje `mx.zoho.eu`, korijenski SPF `include:zoho.eu`.
+
+> Vercel CLI (`vercel domains inspect`) preporučuje stari `76.76.21.21`;
+> dashboard traži `216.198.79.1`. Oba rade, ali dashboard je tačniji — CLI
+> zaostaje za proširenim IP opsegom.
 
 ## Šta je ostalo eksterno
 

@@ -132,3 +132,37 @@ Blokirano:
   verifikovati `nordika-agency.com`. Treba full-access ključ.
 - DNS cutover — namjerno zadržan. Bez ključa bi produkcija dobila formu koja
   vraća 503, a na Webflowu forma trenutno radi.
+
+## Cutover izvršen — 12.09.2026.
+
+Migracija je završena. `www.nordika-agency.com` se servira sa Vercela.
+
+Redoslijed kako je stvarno išlo:
+
+1. Resend: domen `nordika-agency.com` dodat, DNS upisan preko GoDaddy
+   integracije, region `eu-west-1`
+2. Provjereno da su SPF lanci razdvojeni — `send.` poddomena ide na
+   `include:amazonses.com`, korijen ostaje `include:zoho.eu`
+3. `RESEND_API_KEY` postavljen na Vercel; pošiljalac prebačen na
+   `info@nordika-agency.com` (to sanduče postoji u Zohou)
+4. Testna prijava → Resend status **Delivered**, ne samo prihvaćeno
+5. GoDaddy: apex A `198.202.211.1` → `216.198.79.1`,
+   `www` CNAME `cdn.webflow.com` → `cname.vercel-dns.com`
+6. Vercel: apex postavljen kao 308 redirect na www
+7. Puna verifikacija na živom domenu: **32/32 stranice, 230/230 asseta,
+   404 ruta radi**, apex vraća 308 na www, SSL validan
+8. Finalna prijava sa `www.nordika-agency.com` → Delivered
+
+Nalaz: `vercel domains inspect` preporučuje legacy `76.76.21.21`, a dashboard
+`216.198.79.1`. CLI zaostaje za proširenim IP opsegom — vjerovati dashboardu.
+
+Nalaz: restriktivni Resend ključ (`sending only`) može slati sa bilo kog
+verifikovanog domena tog računa, ali ne može čitati `/domains` ni `/emails`.
+Za dijagnostiku treba dashboard ili full-access ključ.
+
+Preostalo (nije tehnički posao):
+
+- Otkazati Webflow site plan, tek kad se potvrdi da sve stoji nekoliko dana.
+  Webflow projekat je i dalje objavljen kao fallback.
+- Po želji: zaseban Resend ključ za ovaj projekat umjesto dijeljenog sa
+  LjutaHerkom, da se jedan može povući bez rušenja drugog sajta.
